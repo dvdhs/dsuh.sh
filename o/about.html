@@ -1,0 +1,80 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" integrity="sha384-5TcZemv2l/9On385z///+d7MSYlvIEw9FuZTIdZ14vJLqWphw7e7ZPuOiCHJcFCP" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" integrity="sha384-cMkvdD8LoxVzGF/RPUKAcvmm49FQ0oxwDF3BGKtDXcEc+T1b2N+teh/OJfpU0jr6" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js" integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          throwOnError : false,
+          macros: {
+            "\\diff": "\\mathrm{d}"
+          }
+        });
+    });
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&display=swap" rel="stylesheet">
+<meta charset="utf-8" />
+
+<link rel="stylesheet" type="text/css" href="/main.css">
+</head>
+<body>
+<div class='text-container'>
+<h2 style='text-align:center;'> David's Agit<sub style='font-family:Georgia;'>아지트</sub> </h2>
+<nav class='horizontal-navbar'>
+  <ul><a href="/home.html">[home]</a></ul>
+  <ul><a href="/about.html">[$(whoami)]</a></ul>
+  <ul><a href="/blogs.html">[articles]</a></ul>
+  <ul><a href="#">[portfolio]</a></ul>
+  <ul><a href="#">[resume/CV]</a></ul>
+</nav>
+<hr>
+
+<br><br>
+<div style='text-align:center;'> <b> About Me </b> </div>
+<div style='text-align:center;'>
+  <img src="/static/img/sk_flag.svg"/ height="60vw">
+  <img src="/static/img/us_flag.svg" height="60vw"/>
+  <img src="/static/img/chicago_flag.svg" height="60vw"/>
+</div>
+Hi! I'm David Suh, a passionate engineer, programmer, and math enthusiast.
+A close friend of mine hooked me onto programming in highschool and I haven't
+stopped since.
+I was born in 2001 in Austin, Texas, and spent some time there before moving
+back to South Korea, where I spent much of my formative years. I returned to the
+US for college, where I attended the University of Chicago from 2020-2024.
+I acquired a B.A. in Mathematics and Computer Science, and also squeezed in
+a M.S. in Computer Science in those years.
+<br>
+<br>
+I currently work in high-frequency trading as a performance engineer in
+Chicago, Illinois. I don't think I'm a particularly talented
+programmer or engineer but I try my best. My hobbies are lifting and running, gaming, and programming
+when I'm not tired of it from my job. 
+<br>
+<br>
+My areas of interest include, but are not limited to: low level optimizations,
+SIMD programming, parallel programming, machine learning, networks.
+My favorite IDE is vim + tmux with plugins.
+</div>
+<footer>
+  (c) David Suh est. 2023 <br>
+<a href="https://github.com/dvdhs">[github]</a>
+<a href="https://www.linkedin.com/in/david-suh12/">[linkedin]</a>
+<p style='font-size:0.6em'> This static website is generated using cpp, the
+C preprocessor. </p>
+</footer>
+</body>
+</html>

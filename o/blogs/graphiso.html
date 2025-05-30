@@ -1,0 +1,277 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" integrity="sha384-5TcZemv2l/9On385z///+d7MSYlvIEw9FuZTIdZ14vJLqWphw7e7ZPuOiCHJcFCP" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" integrity="sha384-cMkvdD8LoxVzGF/RPUKAcvmm49FQ0oxwDF3BGKtDXcEc+T1b2N+teh/OJfpU0jr6" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js" integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          throwOnError : false,
+          macros: {
+            "\\diff": "\\mathrm{d}"
+          }
+        });
+    });
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&display=swap" rel="stylesheet">
+<meta charset="utf-8" />
+
+<link rel="stylesheet" type="text/css" href="/main.css">
+</head>
+<body>
+<div class='text-container'>
+<h2 style='text-align:center;'> David's Agit<sub style='font-family:Georgia;'>아지트</sub> </h2>
+<nav class='horizontal-navbar'>
+  <ul><a href="/home.html">[home]</a></ul>
+  <ul><a href="/about.html">[$(whoami)]</a></ul>
+  <ul><a href="/blogs.html">[articles]</a></ul>
+  <ul><a href="#">[portfolio]</a></ul>
+  <ul><a href="#">[resume/CV]</a></ul>
+</nav>
+<hr>
+
+<h2 style='margin-bottom:2px;'> Number of graphs up to isomorphism </h2>
+<p style='margin-top:1px;'> 2023-05-05 </p>
+<hr>
+<p><strong>This blog post is a re-write up of an interesting problem I
+encountered during my time taking CMSC 27410 (Honors Combinatorics) at
+UChicago.</strong></p>
+<h2 id="the-problem">The Problem</h2>
+<p>Here we note the problem it its entirety.</p>
+<blockquote>
+<p><strong>Problem.</strong> Denote <span
+class="math inline">\(g_n\)</span> the number of graphs, up to
+isomorphism, with <span class="math inline">\(n\)</span> vertices. Show
+that <span class="math display">\[\log_2 g_n \sim n^2/2.\]</span> as
+<span class="math inline">\(n\to\infty\)</span>.</p>
+</blockquote>
+<h2 id="preliminaries">Preliminaries</h2>
+<p>There are a couple premlinary results and notations that we note here
+that we will be using without proof. They are all very well known
+results and so this should not be problem. We will be assuming some
+familiarity with abstract algebra (esp. group theory) and some basic
+probability. - Two graphs <span class="math inline">\(G_1, G_2\)</span>
+are considered isomorphic if there exists a bijection of vertices <span
+class="math inline">\(f: V\to V\)</span>, such that <span
+class="math display">\[v\sim u \quad \text{implies} \quad f(v) \sim
+f(u)\]</span> where <span class="math inline">\(\sim\)</span> denotes
+that two vertices are neighbors. - We denote the symmetric group of
+order <span class="math inline">\(n\)</span> as <span
+class="math inline">\(S_n\)</span>. We can consider this the group of
+permutations of <span class="math inline">\(n\)</span> elements. In
+particular <span class="math inline">\(\sigma\in S_n\)</span> has a
+obvious action on <span class="math inline">\(x\)</span> via
+permutation. - The <em>orbit</em> of an element <span
+class="math inline">\(x\in X\)</span> are the elements of <span
+class="math inline">\(X\)</span> which can be reached by <span
+class="math inline">\(x\)</span> via action from <span
+class="math inline">\(G\)</span>, i.e. <span
+class="math display">\[\{g\cdot x: g\in G\}.\]</span></p>
+<p>Finally, we note the following famous lemma.</p>
+<blockquote>
+<p><strong>Lemma. (Burnside)</strong> Suppose <span
+class="math inline">\(G\)</span> is a finite group acting on <span
+class="math inline">\(X\)</span>. For each <span
+class="math inline">\(g\in G\)</span>, we can denote <span
+class="math inline">\(\operatorname{fix}_ X(g)\)</span> the set of
+elements in <span class="math inline">\(X\)</span> that are fixed under
+the action of <span class="math inline">\(g\)</span> (i.e. <span
+class="math inline">\(g\cdot x = x\)</span>). Then <span
+class="math display">\[\left| X/G\right| = \frac{1}{|G|}\sum_{g\in
+G}|\operatorname{fix}_X(g)|.\]</span></p>
+</blockquote>
+<p>It will become evident why this result will be useful later on.</p>
+<h2 id="solution">Solution</h2>
+<p>First, we can glean a couple insights. Consider <span
+class="math inline">\(\mathrm{Graph}(n)\)</span>, the set of all graphs
+with <span class="math inline">\(n\)</span> vertices, i.e. <span
+class="math display">\[\mathrm{Graph}(n)=\{(V,E): |V|=n\}.\]</span> We
+first consider the number of graphs that are isomorphic to some graph,
+say <span class="math inline">\(G\in \mathrm{Graph}(n)\)</span>. If we
+label all the vertices of <span class="math inline">\(G\)</span> from
+<span class="math inline">\(1\)</span> through <span
+class="math inline">\(n\)</span>, we can note that any isomorphism of
+graphs <span class="math inline">\(f\)</span> will simply be a
+permutation of the labels of vertices of <span
+class="math inline">\(G\)</span> by definition (recall that a
+permutation can be considered a bijection from a finite set to itself).
+Thus we know that the number of isomorphism classes in <span
+class="math inline">\(\mathrm{Graph}(n)\)</span> is in fact the number
+of orbits in <span class="math inline">\(\mathrm{Graph}(n)\)</span>
+under the action of <span class="math inline">\(S_n\)</span>, since any
+two graphs in the same orbit are reachably by a composition of
+permutations (isomorphisms).</p>
+<p>From here, we can apply Burnside’s Lemma to obtain <span
+class="math display">\[g_n = \frac{1}{|S_n|}\sum_{\sigma\in S_n}
+|\mathrm{fix}_ {\mathrm{Graph}(n)}(\sigma)|. \]</span> We can observe
+that <span class="math inline">\(\operatorname{fix}_
+{\mathrm{Graph}(n)}(\sigma)\)</span> is the set of graphs <span
+class="math inline">\(G\in \mathrm{Graph}(n)\)</span> such that <span
+class="math inline">\(\sigma\in \operatorname{Aut}(G)\)</span>. From
+here, we can “pull out” the identity permutation <span
+class="math inline">\(e\in S_n\)</span> from the summation: <span
+class="math display">\[\frac{1}{|S_n|}\sum_{\sigma\in S_n}
+|\mathrm{fix}_ {\mathrm{Graph} (n)}(\sigma)| = \frac{1}{|S_n|}\left(
+|\mathrm{fix}_ {\mathrm{Graph(n)}} (e)| + \sum_{\substack{\sigma\in S_n
+\\ \sigma\neq e}} |\mathrm{fix}_ {\mathrm{Graph}(n)}(\sigma)|
+\right).\]</span> Let us try to fill in some concrete values. It is well
+know that <span class="math inline">\(|S_n|=n!\)</span>. Since the
+identity is always in the automorphism group (trivially), we can note
+that <span class="math display">\[|\mathrm{fix}_ {\mathrm{Graph(n)}}
+(e)| = |\mathrm{Graph}(n)| = 2^{\binom{n}{2}}.\]</span></p>
+<p>where the last equality (again, well-known) comes from the fact that
+for any pair of vertices, we have the choice of creating an edge between
+those vertices or not to create any valid graph. Therefore, we reach
+<span class="math display">\[g_n = \frac{1}{n!}{2^{\binom n2}} +
+\frac{1}{n!}\sum_{\substack{\sigma\in S_n \\ \sigma\neq e}}
+|\mathrm{fix}_{\mathrm{Graph}(n)}(\sigma)|. \tag{$\star$}\]</span> So
+far the mathematics we had use has been rather routine; but worry not as
+we have just now reached the crux of this problem. It is to determine
+the (asymptotic) value of the summation in <span
+class="math inline">\((\star)\)</span>.</p>
+<p>We can note that in essence, we are finding the average number of
+non-trivial automorphisms in <span
+class="math inline">\(\mathrm{Graph}(n)\)</span> as <span
+class="math inline">\(n\to\infty\)</span>.</p>
+<h3 id="non-trivial-isomorphisms-of-mathrmgraphn">Non-Trivial
+Isomorphisms of <span
+class="math inline">\(\mathrm{Graph}(n)\)</span></h3>
+<p>From here, we will roughly sketch the proof as a thourough proof is
+too complex for a blog post. For specific information, one can check out
+the original treatment in <a
+href="https://link.springer.com/article/10.1007/BF01895716">[Erdos &amp;
+Renyi, 1963]</a>. We can build up the result we want by first
+considering the following. A <em>random graph with <span
+class="math inline">\(n\)</span> vertices</em> is a graph with <span
+class="math inline">\(n\)</span> vertices constructed such that each
+edge between any two vertices has a probability <span
+class="math inline">\(p\)</span> of forming. For our purposes, we will
+consider <span class="math inline">\(p=1/2\)</span>. Then we consider
+the quantity <span class="math inline">\(P(\sigma)\)</span>, which is
+the probability on a random graph that <span
+class="math inline">\(\sigma\in S_n\)</span> is a automorphism. We first
+consider a result for <span class="math inline">\(k\)</span>-cycles.</p>
+<hr />
+<blockquote>
+<p><strong>Lemma 1.</strong> If <span
+class="math inline">\(\sigma\)</span> is a <span
+class="math inline">\(k\)</span>-cycle, then <span
+class="math display">\[P(\sigma) = 2^{-(n-2)k}.\]</span></p>
+</blockquote>
+<p><em>Proof (sketch)</em>. Suppose <span
+class="math inline">\(k=2\)</span>. Pick any two vertices <span
+class="math inline">\(u,v\)</span> of the random graph <span
+class="math inline">\(G\)</span>. Then if <span
+class="math inline">\(u\sim a\)</span> then it must be that <span
+class="math inline">\(v\sim a\)</span> in order for <span
+class="math inline">\(\sigma\)</span> to be an automorphism, where <span
+class="math inline">\(\sigma\)</span> is the transposition <span
+class="math inline">\((uv)\)</span>. There are <span
+class="math inline">\(2^{k-2}\)</span> possible edge arrangements for
+<span class="math inline">\(u\)</span> (excluding edges to <span
+class="math inline">\(v\)</span>), so in this case <span
+class="math display">\[P(\sigma) = 2^{k-2}\cdot2^{-k+2}\cdot 2^{-k+2} =
+2^{-k+2}.\]</span> We can repeat this logic for <span
+class="math inline">\(3\)</span>-cycles to get <span
+class="math inline">\(2^{-2k+4}\)</span>, and so on for <span
+class="math inline">\(k\)</span>-cycles. <strong>∎</strong></p>
+<table>
+<tbody>
+<tr>
+<td>It is easy to observe that summing over all <span
+class="math inline">\(P(\sigma)\)</span>, the terms accounting for the
+transpositions dominates as <span
+class="math inline">\(n\to\infty\)</span>. Therefore, we can
+conclude</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Lemma 2.</strong> Suppose <span class="math inline">\(G\in
+\mathrm{Graph}(n)\)</span> has non-trivial automorphisms. Then <span
+class="math display">\[|S_n\cap \mathrm{Aut}(G)| = 1\qquad \text{a.s. as
+} n\to\infty\]</span> Namely, the one nontrivial automorphism is a
+transposition.</p>
+</blockquote>
+<p><em>Proof (sketch).</em> Since the <span
+class="math inline">\(P(\sigma)\)</span> terms from the tranpositions
+dominate, we can conclude from conditional probability and Lemma 1.
+∎</p>
+<p>Let us denote <span class="math inline">\(h_n =
+|\mathrm{Graph}(n)|\)</span>. From Lemma 2, we know that any graph which
+does have a nontrivial automorphism, it is almost surely a transposition
+(for big <span class="math inline">\(n\)</span>). So we can count this
+by the following procedure. First, generate a random graph with <span
+class="math inline">\(n-1\)</span> vertices. Take some vertex <span
+class="math inline">\(v\)</span>. Then we can create such a graph by
+adding a new vertex <span class="math inline">\(u\)</span> such that it
+has the same neighbors as <span class="math inline">\(v\)</span>, then
+choosing to create an edge between <span
+class="math inline">\(u,v\)</span> or not. Thus asympotically there are
+<span class="math inline">\(\sim 2n h_{n-1}\)</span> such graphs. Thus
+in the limit, the density of graphs with non-trivial automorphisms
+(denoted <span class="math inline">\(d\)</span>) is <span
+class="math display">\[d= \lim_{n\to\infty} \frac{2nh_{n-1}}{h_n} =
+\lim_{n\to\infty} \frac{2n\cdot 2^{\binom{n-1}{2}}}{2^{\binom n 2}} \to
+0\]</span> i.e. for big <span class="math inline">\(n\)</span>, any
+random graph will have only a trivial automorphism group with very high
+probability. Thus if we pass <span
+class="math inline">\((\star)\)</span> through the limit, we can know
+that <span class="math inline">\(|\mathrm{fix}_{\mathrm{Graph}(n)}| =
+0\)</span> with very high probability. Therefore in the limit, we can
+write <span class="math display">\[g_n\sim \frac{1}{n!} 2^{\binom n
+2}\]</span> and we can see that <span
+class="math display">\[\begin{align*}
+2^{\binom n 2}/n! = \frac{2^{\frac{n!}{2!(n-2)!}}}{n!} =
+\frac{2^{\frac{n(n-1)}{2}}}{n!}
+\end{align*}\]</span> Therefore by log rules, <span
+class="math display">\[
+\log_2 g_n = \frac{n(n-1)}{2} - \log_2 n!\]</span> where since <span
+class="math inline">\(\log_2n!\)</span> grows subquadratically<a
+href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a>, we can conclude that <span
+class="math display">\[\log_2 g_n \sim n^2/2.\]</span> as desired.</p>
+<h2 id="afterword">Afterword</h2>
+<p>The reason I chose this problem was because I thought the
+intersection of probability and algebra in a combinatorics problem was
+quite interesting. While any well trained modern combinatorist will
+easily point out that these subjects have been indispensible tools in
+the field for a long time, I was personally quite shocked at the mosaic
+of techniques required here when I first solved this question. Thus I
+thought it appropriate to give it a rough treatment here.</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>This is a bit of an handwave but one can observe that
+<span class="math inline">\(\log n! \sim n\log n - n\)</span> through
+e.g. <a
+href="https://en.wikipedia.org/wiki/Stirling%27s_approximation#See_also">Ramanujuan’s
+estimation</a> or estimation on the derivative of <span
+class="math inline">\(\log x!\)</span> via the Gamma function.<a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+<footer>
+  (c) David Suh est. 2023 <br>
+<a href="https://github.com/dvdhs">[github]</a>
+<a href="https://www.linkedin.com/in/david-suh12/">[linkedin]</a>
+<p style='font-size:0.6em'> This static website is generated using cpp, the
+C preprocessor. </p>
+</footer>
+</div>
+</body>
+</html>

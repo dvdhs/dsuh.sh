@@ -1,0 +1,195 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" integrity="sha384-5TcZemv2l/9On385z///+d7MSYlvIEw9FuZTIdZ14vJLqWphw7e7ZPuOiCHJcFCP" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" integrity="sha384-cMkvdD8LoxVzGF/RPUKAcvmm49FQ0oxwDF3BGKtDXcEc+T1b2N+teh/OJfpU0jr6" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js" integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          throwOnError : false,
+          macros: {
+            "\\diff": "\\mathrm{d}"
+          }
+        });
+    });
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&display=swap" rel="stylesheet">
+<meta charset="utf-8" />
+
+<link rel="stylesheet" type="text/css" href="/main.css">
+</head>
+<body>
+<div class='text-container'>
+<h2 style='text-align:center;'> David's Agit<sub style='font-family:Georgia;'>아지트</sub> </h2>
+<nav class='horizontal-navbar'>
+  <ul><a href="/home.html">[home]</a></ul>
+  <ul><a href="/about.html">[$(whoami)]</a></ul>
+  <ul><a href="/blogs.html">[articles]</a></ul>
+  <ul><a href="#">[portfolio]</a></ul>
+  <ul><a href="#">[resume/CV]</a></ul>
+</nav>
+<hr>
+<h2 style='margin-bottom:2px;'> Buffon's Needle </h2>
+<p style='margin-top:1px;'> 2023-05-06 </p>
+<hr>
+<em> Note: This article is outdated, basic, and easy. I no longer think it really provides much of any value. However, I am opting keep
+  this article archived, because 1.) It is a good test for my personal website,
+  the static generation of which I program and maintain personally, and 2.)
+  I do not believe in simply erasing the past. Enjoy :) </em>
+<h3 id="introduction">Introduction</h3>
+<p>In a normal treatment of probability theory, one of the first
+properties of taking expectation <span class="math inline">\(\mathbb
+E\)</span> is <em>linearity</em>: <span class="math display">\[
+\mathbb E[X + Y] = \mathbb E[X] + \mathbb E[Y].
+\]</span></p>
+<p>Though it is a pretty unassuming property for most students, it is
+actually a very useful and interesting property. A common use case is
+for problems where the different RV’s are “obviously” independent. &gt;
+<em>Example 1: Sum of two dice</em> &gt; &gt; Suppose we have two dice.
+We can denote their pip values as <span
+class="math inline">\(X_1,X_2\)</span> and then note &gt; <span
+class="math display">\[\mathbb E[X_1+X_2] = \mathbb E[X_1] + \mathbb
+E[X_2] = 2\cdot 3.5 = 7. \]</span></p>
+<p>But are there any more striking examples of using linearity of
+expectation? Yes – a classical problem(s) known as <em>Buffon’s {Needle
+| Noodle}</em>, with the latter being a short generalization of the
+former. We will first solve the Needle problem using usual probability
+theory, before providing a generalized result using expectation.</p>
+<h3 id="buffons-needle">Buffon’s Needle</h3>
+<p>The problem statement is as follows: if we have a plane consisting of
+evenly spaced parallel lines (in one axis), if we have a randomly place
+line segment of length <span class="math inline">\(\ell\)</span> on the
+plane, what the probability that the segment intersects one of the
+lines? A more real-to-life statement often involves a wooden plank floor
+and the probability a needle (hence the name) intersects the border of
+two planes. To solve this problem, we first setup a couple of variables.
+We can denote <span class="math inline">\(x\)</span> as the distance
+from the center of the line segment to the nearest vertical line segment
+(where we use the usual notion of point-line distance). Then we can
+denote <span class="math inline">\(\theta\)</span> as the acute angle
+formed between the line segment and the vertical line axis.</p>
+<figure>
+<img src="/images/buffonsf1.png" title="Title" alt="no image" />
+<figcaption aria-hidden="true">no image</figcaption>
+</figure>
+<p><em>Diagram of setup variables</em></p>
+<p>Since the distance <span class="math inline">\(x\)</span> can vary
+from <span class="math inline">\(0\)</span> to <span
+class="math inline">\(d\)</span>, where <span
+class="math inline">\(d\)</span> denotes the intervals between vertical
+lines, and clearly the distribution is uniform, we can conclude <span
+class="math display">\[
+f_x(t) = \frac{1}{d/2} = 2/d, \qquad t\in[0, d/2]
+\]</span> where <span class="math inline">\(f_x\)</span> denotes the PDF
+of <span class="math inline">\(x\)</span>. In a similar fashion, we can
+write <span class="math display">\[
+f_{\theta}(t) = 2/\pi, \qquad t\in[0, \pi/2].
+\]</span> We can note that then the needle crosses a vertical line if
+<span class="math display">\[
+x \leq \frac\ell 2 \sin(\theta).
+\]</span> From here, we take two cases.</p>
+<p><strong>[Short Needle]</strong>. Suppose <span
+class="math inline">\(\ell \leq d\)</span>. Thus with probability 1, the
+needle will only cross a single vertical line, if any. Then we can write
+the probability of crossing <span class="math display">\[
+\begin{align*}
+P &amp;= \int_{[0,d/2]\times [0,\pi/2]}f_{x,\theta}(x,\theta) \bm 1_{\\{
+x \leq \frac\ell 2 \sin(\theta)\\}} \diff (x,\theta)\\\ &amp;=\int_{\theta=0}^{\pi/2}\int_{x=0}^{(\ell/2)\sin(\theta)} f_x(x)
+f_\theta(\theta) \diff x \diff \theta \\\ &amp;=\int_{\theta=0}^{\pi/2}\int_{x=0}^{(\ell/2)\sin(\theta)}
+\frac{4}{d\pi} \diff x \diff \theta \\\ &amp;= \frac{2l}{d\pi}.
+\end{align*}
+\]</span></p>
+<p><strong>[Long Needle]</strong>. In this case, we must take into
+consideration the cases where the needle is long enough to gurantee
+crossing a vertical line. In particular, if the horizontal component of
+the needle is longer than <span class="math inline">\(d\)</span>, we
+know the needle is guranteed to cross a vertical line. That is, we know
+the needle will cross with probability 1 if <span
+class="math display">\[
+\ell \sin(\theta) \geq d
+\]</span> or <span class="math display">\[
+\theta \geq \arcsin(d/\ell).
+\]</span> Otherwise, we can note that the answer is the same as the
+short case. Therefore, <span class="math display">\[
+\begin{align*}
+P &amp;= \int_{\theta=0}^{\arcsin(d/\ell)}
+\int_{x=0}^{(\ell/2)\sin(\theta)} \frac{4}{d\pi} \diff x \diff\theta +
+\frac2\pi\left({\frac\pi 2 - \arcsin(d/\ell)}\right) \\\ &amp;= \frac{2\ell}{d\pi} \left(1- \cos(\arcsin(d/\ell))\right) -
+\frac2\pi\arcsin(d/\ell) + 1 \\\ &amp;=\frac{2\ell}{d\pi} \left(1-
+\frac{\sqrt{\ell^2-d^2}}{\ell}\right) - \frac2\pi\arcsin(d /\ell) + 1.
+\end{align*}
+\]</span></p>
+<h3 id="buffons-noodle">Buffon’s Noodle</h3>
+<p>The aptly named Buffon’s Noodle problem deals with a generalization
+of the needle problem – what we consider a “noodle” instead of a needle?
+In technical terms, we consider a smooth (reasonably well-behaved)
+continuous random curve. In this case, the probability distribution
+depends on the curve, but (critically) the expected value of the number
+of crossings does not. We will go through the rough proof here (a more
+detailed treatment can be found in <a
+href="https://www.google.com/books/edition/Introduction_to_Geometric_Probability/Q1ytkNM6BtAC?hl=en">Klain
+&amp; Rota</a>).</p>
+<p>We first consider a piecewise linear curve (i.e. polygonal),
+consisting of say <span class="math inline">\(n\)</span> line segments.
+In particular, we can control <span class="math inline">\(n\)</span> to
+make the line segments as small as we want (since if the line segments
+are too long, we can break them up into consecutive smaller segments).
+So for individual length small enough, each segment can only have at
+most one crossing. Denote <span
+class="math inline">\(X_1,\dots,X_n\)</span> as the indicator RV’s of
+crossing for each segment. Then <span class="math display">\[
+\mathbb E[X_1+\dots + X_n] = \mathbb E[X_1] + \dots + \mathbb E[X_n]
+\tag{1}
+\]</span></p>
+<p>denotes the expected total number of crossings of the polygonal
+curve. From the definition of indicators, we can know that <span
+class="math inline">\(\mathbb E[X_k] = \mathbb P ({\text{segment $k$ has
+a crossing})}\)</span>. We can conclude here easily with our previous
+result on the needle; but we shan’t and proceed in a different
+manner.</p>
+<p>We can easily observe <span class="math inline">\(\mathbb E[X_k] =
+f(L_k)\)</span> where <span class="math inline">\(L_k\)</span> is the
+length of the linear segment. Then from (1) we can get that <span
+class="math inline">\(f(L_1 + L_2) = f(L_1) + f(L_2)\)</span> i.e. <span
+class="math inline">\(f\)</span> is a linear transformation <span
+class="math inline">\(\mathbb \R\to\mathbb\R\)</span>. We can write
+<span class="math display">\[
+f(L) = c L
+\]</span> with <span class="math inline">\(c\)</span> a constant to be
+determined. We can determine <span class="math inline">\(c\)</span> with
+a useful curve of our choice. In particular, we can choose a circle
+<span class="math inline">\(S\)</span> with radius <span
+class="math inline">\(d/2\)</span>, which will almost surely intersect
+two vertical lines. Thus <span class="math display">\[
+\mathbb E[S_{\text{crossings}}] = 2.
+\]</span> meanwhile the length of the curve is <span
+class="math inline">\(\pi d\)</span>. Thus <span class="math display">\[
+f(\pi d) = c\pi d =2; \qquad c=\frac{2}{\pi d}
+\]</span> and thus we can conclude <span class="math display">\[
+\mathbb E[\text{crossings}] = \frac{2L}{\pi d}.
+\]</span></p>
+<p>where <span class="math inline">\(L\)</span> is the length of the
+curve. We can verify this agrees with the needle case solved above.</p>
+
+</div>
+<footer>
+  (c) David Suh est. 2023 <br>
+<a href="https://github.com/dvdhs">[github]</a>
+<a href="https://www.linkedin.com/in/david-suh12/">[linkedin]</a>
+<p style='font-size:0.6em'> This static website is generated using cpp, the
+C preprocessor. </p>
+</footer>
+</body>
+</html>

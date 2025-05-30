@@ -1,0 +1,73 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" integrity="sha384-5TcZemv2l/9On385z///+d7MSYlvIEw9FuZTIdZ14vJLqWphw7e7ZPuOiCHJcFCP" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" integrity="sha384-cMkvdD8LoxVzGF/RPUKAcvmm49FQ0oxwDF3BGKtDXcEc+T1b2N+teh/OJfpU0jr6" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js" integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          throwOnError : false,
+          macros: {
+            "\\diff": "\\mathrm{d}"
+          }
+        });
+    });
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&display=swap" rel="stylesheet">
+<meta charset="utf-8" />
+
+<link rel="stylesheet" type="text/css" href="/main.css">
+</head>
+<body>
+<div class='text-container'>
+<h2 style='text-align:center;'> David's Agit<sub style='font-family:Georgia;'>아지트</sub> </h2>
+<nav class='horizontal-navbar'>
+  <ul><a href="/home.html">[home]</a></ul>
+  <ul><a href="/about.html">[$(whoami)]</a></ul>
+  <ul><a href="/blogs.html">[articles]</a></ul>
+  <ul><a href="#">[portfolio]</a></ul>
+  <ul><a href="#">[resume/CV]</a></ul>
+</nav>
+<hr>
+List of recent blog posts, sorted by newest-first.
+<hr>
+<div id='blog-list'>
+<div data-date="2023-05-06"> <a href="blogs/buffonsn.html"> Buffon's Needle</a> <p style='float:right;margin:1px'>(2023-05-06)</p> <br> <p style='font-size:0.8em;margin:1px;'> We consider the linearity of $\mathbb{E}$ through a toy problem.</p> <hr></div> <div data-date="2023-05-05"> <a href="blogs/graphiso.html"> Number of graphs up to isomorphism</a> <p style='float:right;margin:1px'>(2023-05-05)</p> <br> <p style='font-size:0.8em;margin:1px;'> We discuss an interesting use of Burnside's Lemma in the number of graphs up to isomorphism.</p> <hr></div>
+</div>
+</div>
+<footer>
+  (c) David Suh est. 2023 <br>
+<a href="https://github.com/dvdhs">[github]</a>
+<a href="https://www.linkedin.com/in/david-suh12/">[linkedin]</a>
+<p style='font-size:0.6em'> This static website is generated using cpp, the
+C preprocessor. </p>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const container = document.getElementById('blog-list');
+  const divs = Array.from(container.querySelectorAll('div[data-date]'));
+  divs.sort((a, b) => {
+                    const dateA = new Date(a.dataset.date);
+                    const dateB = new Date(b.dataset.date);
+                    return dateA - dateB;
+  });
+  divs.forEach(div => {
+    container.appendChild(div);
+  });
+})
+</script>
+</body>
+</html>
