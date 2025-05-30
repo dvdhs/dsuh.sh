@@ -1,0 +1,7 @@
+<footer> 
+  (c) David Suh est. 2023 <br>
+<a href="https://github.com/dvdhs">[github]</a>
+<a href="https://www.linkedin.com/in/david-suh12/">[linkedin]</a>
+<p style='font-size:0.6em'> This static website is generated using cpp, the
+C preprocessor. </p>
+</footer>

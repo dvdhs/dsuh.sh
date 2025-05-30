@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html> 
+#include "macros/map.h"
+#include "macros/attr.h"
+
+#define MAKE_BLOG_DIV_LIST(ITEM)\
+<div data-date=STRINGIFY(getattr(ITEM,DATE))>\ 
+  <a href=STRINGIFY(getattr(ITEM,FILEPATH))> getattr(ITEM,TITLE)</a>\
+  <p style='float:right;margin:1px'>(getattr(ITEM,DATE))</p>\
+  <br>\
+  <p style='font-size:0.8em;margin:1px;'> getattr(ITEM,ABSTRACT)</p>\
+  <hr>\
+</div>\
+
+<head>
+#include "components/common_head.html.part"
+
+<link rel="stylesheet" type="text/css" href="/main.css">
+</head>
+
+
+<body>
+<div class='text-container'>
+#include "components/navbar.html.part"
+List of recent blog posts, sorted by newest-first.
+<hr>
+<div id='blog-list'>
+MAP(MAKE_BLOG_DIV_LIST, BLOGS)
+</div>
+
+
+</div>
+#include "components/footer.html.part"
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const container = document.getElementById('blog-list');
+  const divs = Array.from(container.querySelectorAll('div[data-date]'));
+  divs.sort((a, b) => {
+                    const dateA = new Date(a.dataset.date);
+                    const dateB = new Date(b.dataset.date);
+                    return dateA - dateB; // For ascending order. For
+  });
+  divs.forEach(div => {
+    container.appendChild(div);
+  });
+})
+</script>
+</body>
+
+</html>

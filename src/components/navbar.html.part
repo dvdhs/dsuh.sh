@@ -1,0 +1,9 @@
+<h2 style='text-align:center;'> David's Agit<sub style='font-family:Georgia;'>아지트</sub> </h2>
+<nav class='horizontal-navbar'>
+  <ul><a href="/home.html">[home]</a></ul>
+  <ul><a href="/about.html">[$(whoami)]</a></ul>
+  <ul><a href="/blogs.html">[articles]</a></ul>
+  <ul><a href="#">[portfolio]</a></ul>
+  <ul><a href="#">[resume/CV]</a></ul>
+</nav>
+<hr>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html> 
+<head>
+#include "components/katex.html.part"
+#include "components/fonts.html.part"
+#define EQUATION(x,y) $$ x = y $$
+
+<link rel="stylesheet" type="text/css" href="main.css">
+</head>
+
+
+<body>
+<div class='text-container'>
+#include "../components/navbar.html.part"
+$$ x = y $$
+EQUATION(z,r)
+<hr>
+This is some text. This is a macro inside EQUATION(r,r) now.
+#include "../components/lorem.txt"
+
+</div>
+</body>
+
+</html>

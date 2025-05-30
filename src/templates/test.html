@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html> 
+<head>
+
+#define test_TITLE Sample Title
+#define test_DATE strip(2025-05-29
+)
+#define test_ABSTRACT Sample Abstract'
+
+#include "components/common_head.html.part"
+
+<link rel="stylesheet" type="text/css" href="/main.css">
+</head>
+
+
+<body>
+<div class='text-container'>
+#include "components/navbar.html.part"
+
+<h2 style='margin-bottom:2px;'> test_TITLE </h2>
+<p style='margin-top:1px;'> test_DATE </p>
+<hr>
+
+#include "html/test.html.body"
+
+</div>
+</body>
+
+</html>

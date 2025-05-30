@@ -1,0 +1,78 @@
+// Define variables for common values
+$font-family-primary: Georgia, 'Times New Roman', Times, serif;
+$font-family-mono: 'Noto Sans Mono', Courier New;
+// Font sizes
+$font-size-mobile-base: 2.8vw; // Normal text on mobile
+$font-size-desktop-base: 1vw;   // Normal text on desktop
+
+$line-height-base: 1.6;
+$text-color: #333;
+$background-color: #f0f0f0;
+$container-max-width: 80ch;
+$base-padding: 20px;
+$desktop-breakpoint: 768px; // Example breakpoint: screens wider than 768px are considered desktop
+
+$link-color: #506A88;
+
+
+// Global styles for the body
+body {
+  font-family: $font-family-primary;
+  font-size: $font-size-mobile-base;
+  line-height: $line-height-base;
+  color: $text-color;
+  background-color: $background-color;
+  margin: 0;
+  padding: $base-padding;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  flex-wrap: wrap;
+  min-height: 90vh;
+  align-items: center;
+
+  @media (min-width: #{$desktop-breakpoint}) {
+    font-size: $font-size-desktop-base;
+  }
+}
+
+footer {
+  width: 100%;
+  text-align: center;
+  font-family: $font-family-mono;
+  font-size: 0.8em;
+  margin:3vh;
+  opacity: 0.8;
+}
+
+// Styles for the text container
+.text-container {
+  max-width: $container-max-width; /* Limits line length for readability */
+  width: 100%;
+  min-height: 80vh;
+}
+
+// Styles for the horizontal navigation bar
+.horizontal-navbar {
+  width: 100%; /* Allow navbar to take full width before max-width applies */
+  max-width: $container-max-width; /* Sets the maximum width */
+  margin: 0 auto; /* Centers the navbar if its parent is wider */
+  padding: 0; /* Resets padding */
+  display: flex; /* Enables flexbox layout */
+  justify-content: space-between; /* Distributes items with equal space between them */
+
+  // Nesting child elements for better organization
+  ul {
+    list-style: none; /* Removes default bullet points */
+    padding: 0; /* Removes default padding */
+    margin: 0; /* Removes default margin */
+  }
+
+  a {
+    text-decoration: none;
+    color: $link-color;
+  }
+  &:visited {
+    color: $link-color;    
+  }
+}
