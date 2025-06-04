@@ -45,9 +45,13 @@ CC_MACRO_INCLUDES := $(patsubst %,-imacros %,$(SRC_BLOGS))
 
 CC_ALL := $(CC) $(CC_FLAGS) $(CC_DEFINES) $(CC_MACRO_INCLUDES)
 
-all: $(OUT_HTML) $(OUT_SASS) $(OUT_BLOGS)
+all: $(OUT_HTML) $(OUT_SASS) $(OUT_BLOGS) install_static
+
+.PHONY: install_static
+install_static:
 	rsync -a --delete static/ o/static/
 
+.INTERMEDIATE: $(OUT_MANUSCRIPTS)
 src/html/%.html.body: $(MANUSCRIPTS_SRC)/%.md
 	pandoc --mathjax -f markdown -t html $< -o $@
 
@@ -59,7 +63,7 @@ o/%.css: $(SRC_SASS)
 
 .PHONY: clean
 clean:
-	rm -rf o/*
+	rm -rf o/* src/html/*.html.body
 
 .PHONY: template-blog
 template-blog:
@@ -67,5 +71,5 @@ template-blog:
 
 .PHONY: server 
 server:
-	fswatch src Makefile | xargs -I{} -n1 make -j &\
-	python -m http.server 7979 --directory o
+	fswatch Makefile $(SRC_BLOGS) $(SRC_HTML) $(SRC_HTML_COMPONENTS) $(SRC_MANUSCRIPTS) | xargs -I{} -n1 $(MAKE) -j &\
+		python -m http.server --directory o 7979
