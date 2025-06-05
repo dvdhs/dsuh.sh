@@ -25,16 +25,16 @@ footer {
   opacity: 0.8; }
 
 .text-container {
-  max-width: 80ch;
-  /* Limits line length for readability */
   width: 100%;
-  min-height: 80vh; }
+  min-height: 80vh;
+  max-width: 45ch; }
+  @media (min-width: 768px) {
+    .text-container {
+      max-width: 80ch; } }
 
 .horizontal-navbar {
   width: 100%;
-  /* Allow navbar to take full width before max-width applies */
-  max-width: 80ch;
-  /* Sets the maximum width */
+  max-width: 45ch;
   margin: 0 auto;
   /* Centers the navbar if its parent is wider */
   padding: 0;
@@ -43,6 +43,9 @@ footer {
   /* Enables flexbox layout */
   justify-content: space-between;
   /* Distributes items with equal space between them */ }
+  @media (min-width: 768px) {
+    .horizontal-navbar {
+      max-width: 80ch; } }
   .horizontal-navbar ul {
     list-style: none;
     /* Removes default bullet points */

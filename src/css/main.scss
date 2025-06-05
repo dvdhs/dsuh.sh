@@ -8,7 +8,10 @@ $font-size-desktop-base: 1vw;   // Normal text on desktop
 $line-height-base: 1.6;
 $text-color: #333;
 $background-color: #f0f0f0;
-$container-max-width: 80ch;
+
+$container-max-width-mobile: 45ch;
+$container-max-width-desktop: 80ch;
+
 $base-padding: 20px;
 $desktop-breakpoint: 768px; // Example breakpoint: screens wider than 768px are considered desktop
 
@@ -47,15 +50,22 @@ footer {
 
 // Styles for the text container
 .text-container {
-  max-width: $container-max-width; /* Limits line length for readability */
   width: 100%;
   min-height: 80vh;
+
+  max-width: $container-max-width-mobile;
+  @media (min-width: #{$desktop-breakpoint}) {
+    max-width: $container-max-width-desktop;
+  }
 }
 
 // Styles for the horizontal navigation bar
 .horizontal-navbar {
-  width: 100%; /* Allow navbar to take full width before max-width applies */
-  max-width: $container-max-width; /* Sets the maximum width */
+  width: 100%;
+  max-width: $container-max-width-mobile;
+  @media (min-width: #{$desktop-breakpoint}) {
+    max-width: $container-max-width-desktop;
+  }
   margin: 0 auto; /* Centers the navbar if its parent is wider */
   padding: 0; /* Resets padding */
   display: flex; /* Enables flexbox layout */

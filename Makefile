@@ -65,7 +65,7 @@ o/%.css: $(SRC_SASS)
 
 .PHONY: clean
 clean:
-	rm -rf o src/html/*.html.body
+	rm -rf o src/html/*.html.body result
 
 .PHONY: nix-build
 nix-build:
