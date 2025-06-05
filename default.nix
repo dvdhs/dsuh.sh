@@ -3,8 +3,11 @@ let
   pkgs = import nixpkgs { config = {}; overlays = []; };
 in
 
-pkgs.mkShell {
-  packages = with pkgs; [
+pkgs.stdenv.mkDerivation {
+  name = "dsuh.sh";
+  src = ./.;
+  
+  buildInputs = with pkgs; [
     pandoc
     rsync
     sass
@@ -12,4 +15,13 @@ pkgs.mkShell {
     python313
     fswatch
   ];
+  
+  buildPhase = ''
+  make clean && make -j CC=clang
+  '';
+
+  installPhase = ''
+    mkdir -p $out
+    cp -r o $out 
+  '';
 }
